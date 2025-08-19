@@ -4,7 +4,7 @@ import br.com.movieflix.entity.Category;
 import br.com.movieflix.mapper.CategoryMapper;
 import br.com.movieflix.request.CategoryRequest;
 import br.com.movieflix.response.CategoryResponse;
-import br.com.movieflix.service.CategotyService;
+import br.com.movieflix.service.CategoryService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -18,7 +18,7 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class CategoryController {
 
-    private final CategotyService categotyService;
+    private final CategoryService categotyService;
 
     @GetMapping()
     public ResponseEntity<List<CategoryResponse>> getAllCategories() {
