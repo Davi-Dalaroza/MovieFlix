@@ -44,5 +44,9 @@ public class MovieService {
         return streamingsFound;
     }
 
+    public java.util.Optional<Movie> findById(Long id) {
+        return movieRepository.findById(id);
+    }
+
 
 }
