@@ -4,9 +4,9 @@ import br.com.movieflix.entity.Category;
 import br.com.movieflix.entity.Movie;
 import br.com.movieflix.entity.Streaming;
 import br.com.movieflix.request.MovieRequest;
-import br.com.movieflix.response.CategoryResponse;
-import br.com.movieflix.response.MovieResponse;
-import br.com.movieflix.response.StreamingReponse;
+import br.com.movieflix.controller.response.CategoryResponse;
+import br.com.movieflix.controller.response.MovieResponse;
+import br.com.movieflix.controller.response.StreamingReponse;
 import lombok.experimental.UtilityClass;
 
 import java.util.List;

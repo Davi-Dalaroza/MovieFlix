@@ -3,7 +3,7 @@ package br.com.movieflix.controller;
 import br.com.movieflix.entity.Streaming;
 import br.com.movieflix.mapper.StreamingMapper;
 import br.com.movieflix.request.StreamingRequest;
-import br.com.movieflix.response.StreamingReponse;
+import br.com.movieflix.controller.response.StreamingReponse;
 import br.com.movieflix.service.StreamingService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;

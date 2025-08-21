@@ -2,7 +2,7 @@ package br.com.movieflix.mapper;
 
 import br.com.movieflix.entity.Category;
 import br.com.movieflix.request.CategoryRequest;
-import br.com.movieflix.response.CategoryResponse;
+import br.com.movieflix.controller.response.CategoryResponse;
 import lombok.experimental.UtilityClass;
 
 @UtilityClass

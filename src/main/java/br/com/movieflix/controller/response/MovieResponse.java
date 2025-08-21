@@ -1,6 +1,5 @@
-package br.com.movieflix.response;
+package br.com.movieflix.controller.response;
 
-import br.com.movieflix.entity.Streaming;
 import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Builder;
 

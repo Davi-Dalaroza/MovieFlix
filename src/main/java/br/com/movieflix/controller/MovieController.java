@@ -3,7 +3,7 @@ package br.com.movieflix.controller;
 import br.com.movieflix.entity.Movie;
 import br.com.movieflix.mapper.MovieMapper;
 import br.com.movieflix.request.MovieRequest;
-import br.com.movieflix.response.MovieResponse;
+import br.com.movieflix.controller.response.MovieResponse;
 import br.com.movieflix.service.MovieService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;

@@ -1,8 +1,7 @@
 package br.com.movieflix.service;
 
-import br.com.movieflix.entity.Category;
 import br.com.movieflix.entity.Streaming;
-import br.com.movieflix.repository.StreamingRepository;
+import br.com.movieflix.controller.repository.StreamingRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
