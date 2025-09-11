@@ -3,12 +3,13 @@ package br.com.movieflix.service;
 import br.com.movieflix.entity.Category;
 import br.com.movieflix.entity.Movie;
 import br.com.movieflix.entity.Streaming;
-import br.com.movieflix.controller.repository.MovieRepository;
+import br.com.movieflix.repository.MovieRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
@@ -46,6 +47,39 @@ public class MovieService {
 
     public java.util.Optional<Movie> findById(Long id) {
         return movieRepository.findById(id);
+    }
+
+    public Optional<Movie> update(Long movieId, Movie updateMovie){
+        Optional<Movie> optionalMovie = movieRepository.findById(movieId);
+
+        if(optionalMovie.isPresent()){
+            List<Category> updateCategories = this.findCategories(updateMovie.getCategories());
+            List<Streaming> updateStreamings = this.findStreamings(updateMovie.getStreamings());
+
+            Movie movie = optionalMovie.get();
+            movie.setTitle(updateMovie.getTitle());
+            movie.setDescription(updateMovie.getDescription());
+            movie.setReleaseDate(updateMovie.getReleaseDate());
+            movie.setRating(updateMovie.getRating());
+
+            movie.getCategories().clear();
+            movie.getCategories().addAll(updateCategories);
+
+            movie.getStreamings().clear();
+            movie.getStreamings().addAll(updateStreamings);
+
+            movieRepository.save(movie);
+            return Optional.of(movie);
+        }
+        return Optional.empty();
+    }
+
+    public List<Movie> findByCategory(Long idCatogory){
+        return movieRepository.findMovieByCategories(List.of(Category.builder().id(idCatogory).build()));
+    }
+
+    public void deleteMovieById(Long id){
+        movieRepository.deleteById(id);
     }
 
 

@@ -1,4 +1,4 @@
-package br.com.movieflix.controller.repository;
+package br.com.movieflix.repository;
 
 import br.com.movieflix.entity.Category;
 import org.springframework.data.jpa.repository.JpaRepository;
