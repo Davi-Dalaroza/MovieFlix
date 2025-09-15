@@ -21,7 +21,7 @@ public class StreamingController {
     private final StreamingService streamingService;
 
     @GetMapping()
-    public ResponseEntity<List<StreamingReponse>> getAllCategories() {
+    public ResponseEntity<List<StreamingReponse>> getAllStreamings() {
         List<Streaming> streamings = streamingService.findAll();
         List<StreamingReponse> listResponse = streamings.stream()
                 .map(streaming -> StreamingMapper.toStreamingResponse(streaming))
@@ -30,7 +30,7 @@ public class StreamingController {
     }
 
     @PostMapping
-    public ResponseEntity<StreamingReponse> saveCategory(@RequestBody StreamingRequest request) {
+    public ResponseEntity<StreamingReponse> saveStreaming(@RequestBody StreamingRequest request) {
         Streaming newStreaming = StreamingMapper.toStreaming(request);
         Streaming savaedStreaming = streamingService.savaStreaming(newStreaming);
         StreamingReponse streamingReponse = StreamingMapper.toStreamingResponse(savaedStreaming);
@@ -38,14 +38,21 @@ public class StreamingController {
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<StreamingReponse> getCategoryById(@PathVariable Long id) {
+    public ResponseEntity<StreamingReponse> getStreamingById(@PathVariable Long id) {
         return streamingService.findById(id)
                 .map(streaming -> ResponseEntity.ok(StreamingMapper.toStreamingResponse(streaming)))
                 .orElse(ResponseEntity.notFound().build());
     }
 
+    @PutMapping
+    public ResponseEntity<StreamingReponse> updateStreaming(@PathVariable Long id, @RequestBody StreamingRequest streamingRequest) {
+        return streamingService.updateStreaming(id, StreamingMapper.toStreaming(streamingRequest))
+                .map(streaming -> ResponseEntity.ok(StreamingMapper.toStreamingResponse(streaming)))
+                .orElse(ResponseEntity.notFound().build());
+    }
+
     @DeleteMapping("/{id}")
-    public ResponseEntity<Void> deleteCategory(@PathVariable Long id) {
+    public ResponseEntity<Void> deleteStreaming(@PathVariable Long id) {
         Optional<Streaming> streamingDelete = streamingService.findById(id);
         if (streamingDelete.isPresent()) {
             streamingService.deleteStreamingByID(id);

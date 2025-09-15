@@ -1,5 +1,6 @@
 package br.com.movieflix.service;
 
+import br.com.movieflix.controller.request.StreamingRequest;
 import br.com.movieflix.entity.Streaming;
 import br.com.movieflix.repository.StreamingRepository;
 import lombok.RequiredArgsConstructor;
@@ -28,5 +29,18 @@ public class StreamingService {
 
     public void deleteStreamingByID(Long id){
         streamingRepository.deleteById(id);
+    }
+
+    public Optional<Streaming> updateStreaming(Long id, Streaming updateStreaming){
+        Optional<Streaming> optionalStreaming = streamingRepository.findById(id);
+
+        if(optionalStreaming.isPresent()){
+            Streaming streaming = optionalStreaming.get();
+            streaming.setName(updateStreaming.getName());
+
+            streamingRepository.save(streaming);
+            return Optional.of(streaming);
+        }
+        return Optional.empty();
     }
 }
