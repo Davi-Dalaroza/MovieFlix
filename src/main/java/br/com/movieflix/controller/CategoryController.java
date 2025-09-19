@@ -5,6 +5,7 @@ import br.com.movieflix.mapper.CategoryMapper;
 import br.com.movieflix.controller.request.CategoryRequest;
 import br.com.movieflix.controller.response.CategoryResponse;
 import br.com.movieflix.service.CategoryService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,14 @@ public class CategoryController {
 
     private final CategoryService categotyService;
 
+    @PostMapping
+    public ResponseEntity<CategoryResponse> saveCategory(@Valid @RequestBody CategoryRequest request) {
+        Category newCategory = CategoryMapper.toCategory(request);
+        Category savedCategory = categotyService.saveCategory(newCategory);
+        CategoryResponse categoryResponse = CategoryMapper.toCategoryResponse(savedCategory);
+        return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponse);
+    }
+
     @GetMapping()
     public ResponseEntity<List<CategoryResponse>> getAllCategories() {
         List<Category> categories = categotyService.findAll();
@@ -27,14 +36,6 @@ public class CategoryController {
                 .map(category -> CategoryMapper.toCategoryResponse(category))
                 .toList();
         return ResponseEntity.ok(listResponse);
-    }
-
-    @PostMapping
-    public ResponseEntity<CategoryResponse> saveCategory(@RequestBody CategoryRequest request) {
-        Category newCategory = CategoryMapper.toCategory(request);
-        Category savedCategory = categotyService.saveCategory(newCategory);
-        CategoryResponse categoryResponse = CategoryMapper.toCategoryResponse(savedCategory);
-        return ResponseEntity.status(HttpStatus.CREATED).body(categoryResponse);
     }
 
     @GetMapping("/{id}")
@@ -46,7 +47,7 @@ public class CategoryController {
     }
 
     @PutMapping
-    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable Long id, @RequestBody CategoryRequest categoryRequest) {
+    public ResponseEntity<CategoryResponse> updateCategory(@PathVariable Long id,@Valid @RequestBody CategoryRequest categoryRequest) {
         return categotyService.updateCategory(id, CategoryMapper.toCategory(categoryRequest))
                 .map(category -> ResponseEntity.ok(CategoryMapper.toCategoryResponse(category)))
                 .orElse(ResponseEntity.notFound().build());

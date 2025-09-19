@@ -5,6 +5,7 @@ import br.com.movieflix.mapper.StreamingMapper;
 import br.com.movieflix.controller.request.StreamingRequest;
 import br.com.movieflix.controller.response.StreamingReponse;
 import br.com.movieflix.service.StreamingService;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -20,6 +21,14 @@ public class StreamingController {
 
     private final StreamingService streamingService;
 
+    @PostMapping
+    public ResponseEntity<StreamingReponse> saveStreaming(@Valid @RequestBody StreamingRequest request) {
+        Streaming newStreaming = StreamingMapper.toStreaming(request);
+        Streaming savaedStreaming = streamingService.savaStreaming(newStreaming);
+        StreamingReponse streamingReponse = StreamingMapper.toStreamingResponse(savaedStreaming);
+        return ResponseEntity.status(HttpStatus.CREATED).body(streamingReponse);
+    }
+
     @GetMapping()
     public ResponseEntity<List<StreamingReponse>> getAllStreamings() {
         List<Streaming> streamings = streamingService.findAll();
@@ -27,14 +36,6 @@ public class StreamingController {
                 .map(streaming -> StreamingMapper.toStreamingResponse(streaming))
                 .toList();
         return ResponseEntity.ok(listResponse);
-    }
-
-    @PostMapping
-    public ResponseEntity<StreamingReponse> saveStreaming(@RequestBody StreamingRequest request) {
-        Streaming newStreaming = StreamingMapper.toStreaming(request);
-        Streaming savaedStreaming = streamingService.savaStreaming(newStreaming);
-        StreamingReponse streamingReponse = StreamingMapper.toStreamingResponse(savaedStreaming);
-        return ResponseEntity.status(HttpStatus.CREATED).body(streamingReponse);
     }
 
     @GetMapping("/{id}")
@@ -45,7 +46,7 @@ public class StreamingController {
     }
 
     @PutMapping
-    public ResponseEntity<StreamingReponse> updateStreaming(@PathVariable Long id, @RequestBody StreamingRequest streamingRequest) {
+    public ResponseEntity<StreamingReponse> updateStreaming(@PathVariable Long id,@Valid @RequestBody StreamingRequest streamingRequest) {
         return streamingService.updateStreaming(id, StreamingMapper.toStreaming(streamingRequest))
                 .map(streaming -> ResponseEntity.ok(StreamingMapper.toStreamingResponse(streaming)))
                 .orElse(ResponseEntity.notFound().build());
