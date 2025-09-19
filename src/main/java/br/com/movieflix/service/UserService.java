@@ -3,15 +3,22 @@ package br.com.movieflix.service;
 import br.com.movieflix.entity.User;
 import br.com.movieflix.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
+import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UserService {
 
     private final UserRepository userRepository;
+    private final PasswordEncoder passwordEncoder;
 
     public User save(User user){
+        String password = user.getPassword();
+        user.setPassword(passwordEncoder.encode(password));
         return userRepository.save(user);
     }
 
