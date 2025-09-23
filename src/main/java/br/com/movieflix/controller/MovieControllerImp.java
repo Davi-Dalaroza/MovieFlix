@@ -1,14 +1,12 @@
 package br.com.movieflix.controller;
 
 import br.com.movieflix.entity.Movie;
-import br.com.movieflix.entity.Streaming;
 import br.com.movieflix.mapper.MovieMapper;
 import br.com.movieflix.controller.request.MovieRequest;
 import br.com.movieflix.controller.response.MovieResponse;
 import br.com.movieflix.service.MovieService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
-import org.springframework.data.repository.query.Param;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -19,7 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/movieflix/movie")
 @RequiredArgsConstructor
-public class MovieController {
+public class MovieControllerImp implements MovieController {
 
     private final MovieService movieService;
 

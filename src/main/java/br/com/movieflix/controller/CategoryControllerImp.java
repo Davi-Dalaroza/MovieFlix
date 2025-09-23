@@ -17,7 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/movieflix/category")
 @RequiredArgsConstructor
-public class CategoryController {
+public class CategoryControllerImp implements  CategoryController {
 
     private final CategoryService categotyService;
 

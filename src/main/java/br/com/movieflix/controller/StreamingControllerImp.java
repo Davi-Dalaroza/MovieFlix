@@ -17,7 +17,7 @@ import java.util.Optional;
 @RestController
 @RequestMapping("/movieflix/streaming")
 @RequiredArgsConstructor
-public class StreamingController {
+public class StreamingControllerImp implements StreamingController {
 
     private final StreamingService streamingService;
 

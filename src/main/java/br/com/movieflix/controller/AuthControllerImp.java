@@ -7,18 +7,15 @@ import br.com.movieflix.controller.response.LoginResponse;
 import br.com.movieflix.controller.response.UserResponse;
 import br.com.movieflix.entity.User;
 import br.com.movieflix.mapper.UserMapper;
-import br.com.movieflix.service.MovieService;
 import br.com.movieflix.service.UserService;
 import exception.UserNameOrPasswordInvalidException;
 import lombok.RequiredArgsConstructor;
-import org.apache.coyote.BadRequestException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
@@ -26,7 +23,7 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/movieflix/auth")
 @RequiredArgsConstructor
 @Controller
-public class AuthController {
+public class AuthControllerImp implements  AuthController {
 
     private final UserService userService;
     private final AuthenticationManager authenticationManager;
